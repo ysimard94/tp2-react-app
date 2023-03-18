@@ -2,9 +2,9 @@ import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 const Edit = ({ products, editProduct }) => {
     let id = parseFloat(useParams().id)
-    const product = products.find(product => product.id === id);
-    console.log(product)
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+    // Va chercher le produit qui a l'id correspondant à l'id passé dans l'url
+    const product = products.find(product => product.id === id);
 
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -16,6 +16,7 @@ const Edit = ({ products, editProduct }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Si un seul des champs est vide, afficher un message d'erreur qui disparaitra après 5 secondes
         if (!name || !description || !price || !category) {
             setError('true');
 
@@ -26,17 +27,17 @@ const Edit = ({ products, editProduct }) => {
             // Pour que le message d'erreur disparaisse si la personne a rempli tous les champs rapidement après son affichage
             setError('false');
 
+            // Modifier le produit et afficher un message de succès qui va disparaitre après 5 secondes
             editProduct(id, name, description, price, category);
             setSuccess('true');
 
             setTimeout(() => {
                 setSuccess('false');
             }, 5000);
-
         }
-
     };
 
+    // S'il n'y a pas de produit qui correspond à l'id envoyé en paramètres, on affiche un message d'erreur
     if (!product) {
         return <p>There are no product corresponding.</p>
     }

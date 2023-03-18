@@ -11,6 +11,7 @@ const Form = ({ addProduct }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Si un seul des champs est vide, afficher un message d'erreur qui disparaitra après 5 secondes
         if (!name || !description || !price || !category) {
             setError('true');
 
@@ -22,12 +23,15 @@ const Form = ({ addProduct }) => {
             // Pour que le message d'erreur disparaisse si la personne a rempli tous les champs rapidement après son affichage
             setError('false');
 
+            // Ajouter le produit et afficher un message de succès qui va disparaitre après 5 secondes
             addProduct(name, description, price, category);
             setSuccess('true');
 
             setTimeout(() => {
                 setSuccess('false');
             }, 5000);
+
+            // Vider les champs après l'ajout du produit
             setName('');
             setDescription('');
             setPrice('');

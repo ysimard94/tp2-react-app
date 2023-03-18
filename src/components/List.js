@@ -6,6 +6,8 @@ const List = ({ products, onDelete }) => {
         return <p>There are no products added yet.</p>
     }
     else {
+
+        // Va supprimer un produit au clic du bouton delete
         const handleDelete = (id) => {
             onDelete(id);
         };
